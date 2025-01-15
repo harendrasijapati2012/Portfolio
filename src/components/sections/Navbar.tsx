@@ -16,7 +16,7 @@ import {
 interface NavItem {
   label: string;
   href: string;
-  icon: React.ComponentType;
+  icon: typeof Home; // More specific type for icons
 }
 
 const navItems: NavItem[] = [
@@ -26,9 +26,42 @@ const navItems: NavItem[] = [
   { label: "Contact", href: "#contact", icon: Mail },
 ];
 
+// Custom button component for navigation items
+const NavButton = ({
+  active,
+  icon: Icon,
+  label,
+  onClick,
+  onKeyDown,
+  className,
+}: {
+  active: boolean;
+  icon: typeof Home;
+  label: string;
+  onClick: () => void;
+  onKeyDown: (e: React.KeyboardEvent) => void;
+  className?: string;
+}) => (
+  <Button
+    variant="ghost"
+    className={cn(
+      "flex items-center space-x-2 transition-colors",
+      active ? "text-blue-500 dark:text-blue-400" : "text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400",
+      className
+    )}
+    onClick={onClick}
+    onKeyDown={onKeyDown}
+    role="link"
+    aria-current={active ? "page" : undefined}
+  >
+    <Icon className="h-4 w-4" />
+    <span>{label}</span>
+  </Button>
+);
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
 
@@ -49,12 +82,14 @@ const Navbar = () => {
       }).filter((section): section is { id: string; offset: number } => section !== null);
 
       // Find the section closest to the top of the viewport
-      const closestSection = sections.reduce((closest, current) => {
-        return current.offset < closest.offset ? current : closest;
-      }, sections[0]);
+      if (sections.length > 0) {
+        const closestSection = sections.reduce((closest, current) => {
+          return current.offset < closest.offset ? current : closest;
+        });
 
-      if (closestSection) {
-        setActiveSection(closestSection.id);
+        if (closestSection) {
+          setActiveSection(closestSection.id);
+        }
       }
     };
 
@@ -86,8 +121,32 @@ const Navbar = () => {
 
   if (!mounted) return null;
 
+  // Theme toggle button component
+  const ThemeToggle = () => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon" className="w-9 h-9">
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          System
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+
   return (
-    <nav className="fixed w-full top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 backdrop-blur-sm bg-white/75 dark:bg-gray-900/75">
+    <nav className="fixed w-full top-0 z-50 bg-white/75 dark:bg-gray-900/75 border-b border-gray-200 dark:border-gray-700 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0">
@@ -98,58 +157,20 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Button
-                  key={item.href}
-                  variant="ghost"
-                  className={cn(
-                    "flex items-center space-x-2 transition-colors",
-                    activeSection === item.href.substring(1)
-                      ? "text-blue-500 dark:text-blue-400"
-                      : "text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
-                  )}
-                  onClick={() => scrollToSection(item.href)}
-                  onKeyDown={(e) => handleKeyNavigation(e, item.href)}
-                  tabIndex={0}
-                  role="link"
-                  aria-current={activeSection === item.href.substring(1) ? "page" : undefined}
-                >
-                  <Icon className="h-4 w-4" />
-                  <span>{item.label}</span>
-                </Button>
-              );
-            })}
+            {navItems.map((item) => (
+              <NavButton
+                key={item.href}
+                icon={item.icon}
+                label={item.label}
+                active={activeSection === item.href.substring(1)}
+                onClick={() => scrollToSection(item.href)}
+                onKeyDown={(e) => handleKeyNavigation(e, item.href)}
+              />
+            ))}
           </div>
 
           <div className="flex items-center space-x-4">
-            {/* Theme Dropdown */}
-            <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div>
-                <Button variant="ghost" size="icon" className="w-9 h-9">
-                  <span className="relative">
-                    <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                    <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                  </span>
-                  <span className="sr-only">Toggle theme</span>
-                </Button>
-              </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setTheme("light")}>
-                Light
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("dark")}>
-                Dark
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("system")}>
-                System
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-            {/* Mobile Menu Button */}
+            <ThemeToggle />
             <Button
               variant="ghost"
               size="icon"
@@ -171,28 +192,16 @@ const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4" role="dialog" aria-modal="true">
             <div className="flex flex-col space-y-4">
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <Button
-                    key={item.href}
-                    variant="ghost"
-                    className={cn(
-                      "flex items-center space-x-2",
-                      activeSection === item.href.substring(1)
-                        ? "text-blue-500 dark:text-blue-400"
-                        : "text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
-                    )}
-                    onClick={() => scrollToSection(item.href)}
-                    onKeyDown={(e) => handleKeyNavigation(e, item.href)}
-                    role="link"
-                    aria-current={activeSection === item.href.substring(1) ? "page" : undefined}
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span>{item.label}</span>
-                  </Button>
-                );
-              })}
+              {navItems.map((item) => (
+                <NavButton
+                  key={item.href}
+                  icon={item.icon}
+                  label={item.label}
+                  active={activeSection === item.href.substring(1)}
+                  onClick={() => scrollToSection(item.href)}
+                  onKeyDown={(e) => handleKeyNavigation(e, item.href)}
+                />
+              ))}
             </div>
           </div>
         )}

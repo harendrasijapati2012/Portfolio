@@ -1,3 +1,4 @@
+// src/components/sections/ContactForm.tsx
 'use client';
 
 import React, { useState, ChangeEvent, FormEvent } from 'react';
@@ -37,7 +38,8 @@ const ContactForm = () => {
       } else {
         setStatus('error');
       }
-    } catch (error) {
+    } catch {
+      // Simply set error status without capturing the error
       setStatus('error');
     }
   };

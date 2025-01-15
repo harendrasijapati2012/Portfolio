@@ -1,4 +1,4 @@
-// src/app/api/contact/route.ts
+// src/app/api/contact/route.tsx
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
@@ -29,7 +29,8 @@ export async function POST(request: Request) {
       { message: 'Email sent successfully' },
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
+    // Handle error without capturing it
     return NextResponse.json(
       { message: 'Failed to send email' },
       { status: 500 }

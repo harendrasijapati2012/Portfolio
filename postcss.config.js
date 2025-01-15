@@ -10,5 +10,3 @@ module.exports = {
     autoprefixer: {},
   },
 };
-
-export default config;
