@@ -1,8 +1,7 @@
-// components/sections/Navbar.tsx
 "use client"
 
 import { useState, useEffect } from "react"
-import { Moon, Sun, Menu, X, Home, Briefcase, Code2, Mail } from "lucide-react"
+import { Moon, Sun, Menu, X, Home, Briefcase, Code2, Mail, Terminal, Code } from "lucide-react"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -149,10 +148,17 @@ const Navbar = () => {
     <nav className="fixed w-full top-0 z-50 bg-white/75 dark:bg-gray-900/75 border-b border-gray-200 dark:border-gray-700 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 flex items-center space-x-2">
+            <div className="relative h-8 w-8 flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white overflow-hidden group">
+              <Code className="h-4 w-4 group-hover:scale-110 transition-transform" />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-30 transition-opacity"></div>
+            </div>
             <h1 className="text-xl font-bold text-gray-900 dark:text-white">
               Harendra
             </h1>
+            <div className="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-md font-mono ml-1">
+              <span className="text-blue-600 dark:text-blue-400">dev</span>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
