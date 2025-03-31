@@ -44,7 +44,7 @@ export default function Skills() {
     ],
   };
 
-  const renderSkillItem = (skill, index) => (
+  const renderSkillItem = (skill: { name: any; icon: any; }, index: React.Key | null | undefined) => (
     <div key={index} className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 px-4 py-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 border border-blue-100 dark:border-blue-800">
       <div className="flex-shrink-0">
         {skill.icon}

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { FaGithub, FaExternalLinkAlt, FaCode, FaDatabase, FaServer, FaReact, FaNodeJs, FaPhp, FaJs, FaLaravel } from 'react-icons/fa';
-import { SiMongodb, SiTypescript, SiDjango, SiNextdotjs, SiTailwindcss, SiMui, SiCplusplus, SiExpress, SiMaterialui } from 'react-icons/si';
+import { SiMongodb, SiTypescript, SiDjango, SiNextdotjs, SiTailwindcss, SiMui, SiCplusplus, SiExpress } from 'react-icons/si';
 import { VscCode } from 'react-icons/vsc';
 import { motion } from 'framer-motion';
 

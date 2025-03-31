@@ -2,8 +2,8 @@
 
 // src/components/sections/Hero.tsx
 import { useState, useEffect } from 'react';
-import { FaReact, FaNodeJs, FaDatabase, FaHtml5, FaCss3, FaCode, FaLaptopCode } from 'react-icons/fa';
-import { SiDjango, SiPostgresql, SiTailwindcss, SiJavascript, SiTypescript, SiNextdotjs } from 'react-icons/si';
+import { FaReact, FaLaptopCode } from 'react-icons/fa';
+import { SiDjango, SiPostgresql, SiTailwindcss, SiTypescript, SiNextdotjs } from 'react-icons/si';
 import { motion } from 'framer-motion';
 
 export default function Hero() {
@@ -51,7 +51,7 @@ export default function Hero() {
   }, []);
 
   // Smooth scroll function
-  const scrollToSection = (sectionId) => {
+  const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
