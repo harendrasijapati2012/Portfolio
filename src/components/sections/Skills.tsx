@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { FaHtml5, FaCss3Alt, FaReact, FaNodeJs, FaPython, FaDatabase, FaDocker, FaGit, FaAws, FaJava, FaWindows } from 'react-icons/fa';
 import { SiTypescript, SiJavascript, SiNextdotjs, SiTailwindcss, SiExpress, SiMongodb, SiPostgresql, 
          SiMysql, SiDjango, SiBootstrap, SiCplusplus, SiPhp, SiLinux } from 'react-icons/si';
 import { TbBrandCpp } from 'react-icons/tb';
 
+
+interface SkillItem {
+  name: string;
+  icon: JSX.Element;
+}
+
+interface SkillCategories {
+  languages: SkillItem[];
+  frontend: SkillItem[];
+  backend: SkillItem[];
+  database: SkillItem[];
+  tools: SkillItem[];
+}
+
 export default function Skills() {
-  const skills = {
+  const skills: SkillCategories = {
     languages: [
       { name: "JavaScript", icon: <SiJavascript className="text-yellow-400" size={24} /> },
       { name: "TypeScript", icon: <SiTypescript className="text-blue-600" size={24} /> },
@@ -44,7 +58,7 @@ export default function Skills() {
     ],
   };
 
-  const renderSkillItem = (skill: { name: any; icon: any; }, index: React.Key | null | undefined) => (
+  const renderSkillItem = (skill: SkillItem, index: number) => (
     <div key={index} className="flex items-center gap-2 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 px-4 py-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 border border-blue-100 dark:border-blue-800">
       <div className="flex-shrink-0">
         {skill.icon}
@@ -52,6 +66,7 @@ export default function Skills() {
       <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{skill.name}</span>
     </div>
   );
+  
 
   return (
     <section id="skills" className="py-20 px-4 bg-gray-50 dark:bg-gray-900">

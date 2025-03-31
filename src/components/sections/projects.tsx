@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { FaGithub, FaExternalLinkAlt, FaCode, FaDatabase, FaServer, FaReact, FaNodeJs, FaPhp, FaJs, FaLaravel } from 'react-icons/fa';
+import Image from "next/image";
+import { FaGithub, FaExternalLinkAlt, FaCode, FaReact, FaNodeJs, FaPhp, FaJs, FaLaravel } from 'react-icons/fa';
 import { SiMongodb, SiTypescript, SiDjango, SiNextdotjs, SiTailwindcss, SiMui, SiCplusplus, SiExpress } from 'react-icons/si';
 import { VscCode } from 'react-icons/vsc';
 import { motion } from 'framer-motion';
@@ -191,14 +192,16 @@ export default function Projects() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 group"
             >
-              <div className="relative overflow-hidden h-52">
-                <img 
-                  src={project.imageUrl} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
-              </div>
+             <div className="relative overflow-hidden h-52">
+  <Image 
+    src={project.imageUrl} 
+    alt={project.title}
+    fill
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+    className="object-cover transition-transform duration-500 group-hover:scale-110"
+  />
+  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
+</div>
               <div className="p-6">
                 <h3 className="text-2xl font-bold mb-2 text-gray-800">{project.title}</h3>
                 <p className="text-gray-600 mb-4">{project.description}</p>

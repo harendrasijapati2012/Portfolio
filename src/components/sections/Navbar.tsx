@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Moon, Sun, Menu, X, Home, Briefcase, Code2, Mail,Code } from "lucide-react"
+import { Moon, Sun, Menu, X, Home, Briefcase, Code2, Mail, Code } from "lucide-react"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
