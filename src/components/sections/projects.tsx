@@ -103,13 +103,12 @@ export default function Projects() {
     {
       title: "Promotion Advertisement Hub",
       description: "Property rental marketplace connecting landlords with tenants, featuring property listings and booking system.",
-      technologies: ["Node.js", "Express", "MongoDB", "React", "Redux"],
+      technologies: ["django", "django rest framework", "Sqlite3", "React"],
       imageUrl: "/projects/advertisementhub.png",
       githubUrl: "https://github.com/orgs/Advertisement-Hub-55/repositories",
       liveUrl: "http://x08c48c8wc048w40cc0w4sow.157.173.220.245.sslip.io/",
-      category: "nodejs"
+      category: "fullstack"
     }
-    
   ];
 
   const filteredProjects = filter === 'all' 
@@ -136,91 +135,191 @@ export default function Projects() {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const projectVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <section className="py-20 px-4 bg-gray-50 dark:bg-gray-900">
+    <section id="projects" className="min-h-screen py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-background via-background to-background">
+      
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-2">My Projects</h2>
-        <p className="text-xl text-gray-600 text-center mb-8">Explore my latest work and development projects</p>
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center space-y-4 mb-12"
+        >
+          <motion.h2 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-400 dark:to-pink-400"
+          >
+            My Projects
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-muted-foreground"
+          >
+            Explore my latest work and development projects
+          </motion.p>
+        </motion.div>
         
         {/* Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          <button 
-            onClick={() => setFilter('all')}
-            className={`px-4 py-2 rounded-full transition-all duration-300 ${filter === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            All Projects
-          </button>
-          <button 
-            onClick={() => setFilter('fullstack')}
-            className={`px-4 py-2 rounded-full transition-all duration-300 ${filter === 'fullstack' ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            Full Stack
-          </button>
-          <button 
-            onClick={() => setFilter('javascript')}
-            className={`px-4 py-2 rounded-full transition-all duration-300 ${filter === 'javascript' ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            JavaScript
-          </button>
-          <button 
-            onClick={() => setFilter('c')}
-            className={`px-4 py-2 rounded-full transition-all duration-300 ${filter === 'c' ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            C Language
-          </button>
-          <button 
-            onClick={() => setFilter('visualbasic')}
-            className={`px-4 py-2 rounded-full transition-all duration-300 ${filter === 'visualbasic' ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            Visual Basic
-          </button>
-          <button 
-            onClick={() => setFilter('nodejs')}
-            className={`px-4 py-2 rounded-full transition-all duration-300 ${filter === 'nodejs' ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            Node.js
-          </button>
-          <button 
-            onClick={() => setFilter('laravel')}
-            className={`px-4 py-2 rounded-full transition-all duration-300 ${filter === 'laravel' ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-          >
-            Laravel
-          </button>
+        <div className="flex justify-center mb-8 overflow-x-auto pb-4 no-scrollbar">
+          <div className="inline-flex bg-white dark:bg-[#09090b] rounded-lg p-1 shadow-md">
+            <button 
+              onClick={() => setFilter('all')}
+              className={`px-4 py-2 rounded-md transition-all duration-300 whitespace-nowrap
+                ${filter === 'all' 
+                  ? 'bg-purple-500 text-white' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-400'}`}
+            >
+              All Projects
+            </button>
+            <button 
+              onClick={() => setFilter('fullstack')}
+              className={`px-4 py-2 rounded-md transition-all duration-300 whitespace-nowrap
+                ${filter === 'fullstack' 
+                  ? 'bg-purple-500 text-white' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-400'}`}
+            >
+              Full Stack
+            </button>
+            <button 
+              onClick={() => setFilter('javascript')}
+              className={`px-4 py-2 rounded-md transition-all duration-300 whitespace-nowrap
+                ${filter === 'javascript' 
+                  ? 'bg-purple-500 text-white' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-400'}`}
+            >
+              JavaScript
+            </button>
+            <button 
+              onClick={() => setFilter('c')}
+              className={`px-4 py-2 rounded-md transition-all duration-300 whitespace-nowrap
+                ${filter === 'c' 
+                  ? 'bg-purple-500 text-white' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-400'}`}
+            >
+              C Language
+            </button>
+            <button 
+              onClick={() => setFilter('visualbasic')}
+              className={`px-4 py-2 rounded-md transition-all duration-300 whitespace-nowrap
+                ${filter === 'visualbasic' 
+                  ? 'bg-purple-500 text-white' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-400'}`}
+            >
+              Visual Basic
+            </button>
+            <button 
+              onClick={() => setFilter('nodejs')}
+              className={`px-4 py-2 rounded-md transition-all duration-300 whitespace-nowrap
+                ${filter === 'nodejs' 
+                  ? 'bg-purple-500 text-white' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-400'}`}
+            >
+              Node.js
+            </button>
+            <button 
+              onClick={() => setFilter('laravel')}
+              className={`px-4 py-2 rounded-md transition-all duration-300 whitespace-nowrap
+                ${filter === 'laravel' 
+                  ? 'bg-purple-500 text-white' 
+                  : 'text-gray-600 dark:text-gray-300 hover:text-purple-500 dark:hover:text-purple-400'}`}
+            >
+              Laravel
+            </button>
+          </div>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Projects Grid with Animation */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-h-[70vh] overflow-y-auto pr-2 pt-2 pb-4"
+          style={{
+            scrollbarWidth: 'thin',
+            scrollbarColor: '#a855f7 transparent'
+          }}
+        >
           {filteredProjects.map((project, index) => (
             <motion.div 
               key={index}
+              variants={projectVariants}
               whileHover={{ 
-                scale: 1.05,
-                transition: { duration: 0.3 }
+                y: -8,
+                transition: { duration: 0.2 }
               }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100 group"
+              className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-100 dark:border-gray-700"
             >
-             <div className="relative overflow-hidden h-52">
-  <Image 
-    src={project.imageUrl} 
-    alt={project.title}
-    fill
-    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-    className="object-cover transition-transform duration-500 group-hover:scale-110"
-  />
-  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
-</div>
+              <div className="relative overflow-hidden h-52">
+                <Image 
+                  src={project.imageUrl} 
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                  {project.githubUrl && (
+                    <motion.a
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      href={project.githubUrl}
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="p-2 bg-white/10 rounded-full backdrop-blur-sm hover:bg-white/20 transition-colors"
+                    >
+                      <FaGithub className="w-6 h-6 text-white" />
+                    </motion.a>
+                  )}
+                  
+                  {project.liveUrl && (
+                    <motion.a
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      href={project.liveUrl}
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="p-2 bg-white/10 rounded-full backdrop-blur-sm hover:bg-white/20 transition-colors"
+                    >
+                      <FaExternalLinkAlt className="w-6 h-6 text-white" />
+                    </motion.a>
+                  )}
+                </div>
+              </div>
               <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2 text-gray-800">{project.title}</h3>
-                <p className="text-gray-600 mb-4">{project.description}</p>
+                <h3 className="text-2xl font-bold mb-2 text-gray-800 dark:text-white">{project.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.map((tech, techIndex) => (
                     <span 
                       key={techIndex} 
-                      className="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 text-sm font-medium text-gray-700"
+                      className="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-sm font-medium text-gray-700 dark:text-gray-200"
                     >
                       {getIcon(tech)}
                       {tech}
@@ -228,13 +327,13 @@ export default function Projects() {
                   ))}
                 </div>
                 
-                <div className="flex gap-4 mt-auto">
+                <div className="flex gap-4 mt-4">
                   {project.githubUrl && (
                     <a 
                       href={project.githubUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-800 dark:bg-gray-700 text-white hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors"
                     >
                       <FaGithub /> GitHub
                     </a>
@@ -245,7 +344,7 @@ export default function Projects() {
                       href={project.liveUrl} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-500 transition-colors"
                     >
                       <FaExternalLinkAlt /> Live Demo
                     </a>
@@ -254,11 +353,11 @@ export default function Projects() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
         
         {filteredProjects.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-2xl text-gray-500">No projects found in this category.</p>
+            <p className="text-2xl text-gray-500 dark:text-gray-400">No projects found in this category.</p>
           </div>
         )}
       </div>

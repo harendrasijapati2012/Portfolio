@@ -8,6 +8,7 @@ import { TbBrandCpp } from 'react-icons/tb';
 interface SkillItem {
   name: string;
   icon: JSX.Element;
+  level: 'Advanced' | 'Intermediate';
 }
 
 interface SkillCategories {
@@ -21,40 +22,40 @@ interface SkillCategories {
 export default function Skills() {
   const skills: SkillCategories = {
     languages: [
-      { name: "JavaScript", icon: <SiJavascript className="text-yellow-400" size={24} /> },
-      { name: "TypeScript", icon: <SiTypescript className="text-blue-600" size={24} /> },
-      { name: "Python", icon: <FaPython className="text-blue-500" size={24} /> },
-      { name: "Java", icon: <FaJava className="text-red-500" size={24} /> },
-      { name: "C", icon: <TbBrandCpp className="text-blue-800" size={24} /> },
-      { name: "C++", icon: <SiCplusplus className="text-green-600" size={24} /> },
-      { name: "PHP", icon: <SiPhp className="text-purple-600" size={24} /> },
-      { name: "Visual Basic", icon: <FaWindows className="text-blue-700" size={24} /> },
+      { name: "JavaScript", icon: <SiJavascript className="text-yellow-400" size={24} />, level: "Advanced" },
+      { name: "TypeScript", icon: <SiTypescript className="text-blue-600" size={24} />, level: "Intermediate" },
+      { name: "Python", icon: <FaPython className="text-blue-500" size={24} />, level: "Advanced" },
+      { name: "Java", icon: <FaJava className="text-red-500" size={24} />, level: "Intermediate" },
+      { name: "C", icon: <TbBrandCpp className="text-blue-800" size={24} />, level: "Advanced" },
+      { name: "C++", icon: <SiCplusplus className="text-green-600" size={24} />, level: "Advanced" },
+      { name: "PHP", icon: <SiPhp className="text-purple-600" size={24} />, level: "Intermediate" },
+      { name: "Visual Basic", icon: <FaWindows className="text-blue-700" size={24} />, level: "Intermediate" },
     ],
     frontend: [
-      { name: "HTML5", icon: <FaHtml5 className="text-orange-500" size={24} /> },
-      { name: "CSS3", icon: <FaCss3Alt className="text-blue-500" size={24} /> },
-      { name: "React", icon: <FaReact className="text-blue-400" size={24} /> },
-      { name: "Next.js", icon: <SiNextdotjs className="text-black dark:text-white" size={24} /> },
-      { name: "Tailwind CSS", icon: <SiTailwindcss className="text-teal-500" size={24} /> },
-      { name: "Bootstrap", icon: <SiBootstrap className="text-purple-500" size={24} /> },
+      { name: "HTML5", icon: <FaHtml5 className="text-orange-500" size={24} />, level: "Advanced" },
+      { name: "CSS3", icon: <FaCss3Alt className="text-blue-500" size={24} />, level: "Advanced" },
+      { name: "React", icon: <FaReact className="text-blue-400" size={24} />, level: "Advanced" },
+      { name: "Next.js", icon: <SiNextdotjs className="text-black dark:text-white" size={24} />, level: "Intermediate" },
+      { name: "Tailwind CSS", icon: <SiTailwindcss className="text-teal-500" size={24} />, level: "Advanced" },
+      { name: "Bootstrap", icon: <SiBootstrap className="text-purple-500" size={24} />, level: "Intermediate" },
     ],
     backend: [
-      { name: "Node.js", icon: <FaNodeJs className="text-green-500" size={24} /> },
-      { name: "Express", icon: <SiExpress className="text-gray-600 dark:text-gray-400" size={24} /> },
-      { name: "Django", icon: <SiDjango className="text-green-800" size={24} /> },
-      { name: "REST Framework", icon: <SiDjango className="text-red-600" size={24} /> },
+      { name: "Node.js", icon: <FaNodeJs className="text-green-500" size={24} />, level: "Intermediate" },
+      { name: "Express", icon: <SiExpress className="text-gray-600 dark:text-gray-400" size={24} />, level: "Intermediate" },
+      { name: "Django", icon: <SiDjango className="text-green-800" size={24} />, level: "Advanced" },
+      { name: "REST Framework", icon: <SiDjango className="text-red-600" size={24} />, level: "Advanced" },
     ],
     database: [
-      { name: "MongoDB", icon: <SiMongodb className="text-green-500" size={24} /> },
-      { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-600" size={24} /> },
-      { name: "MySQL", icon: <SiMysql className="text-blue-800" size={24} /> },
-      { name: "SQLite", icon: <FaDatabase className="text-blue-400" size={24} /> },
+      { name: "MongoDB", icon: <SiMongodb className="text-green-500" size={24} />, level: "Intermediate" },
+      { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-600" size={24} />, level: "Advanced" },
+      { name: "MySQL", icon: <SiMysql className="text-blue-800" size={24} />, level: "Advanced" },
+      { name: "SQLite", icon: <FaDatabase className="text-blue-400" size={24} />, level: "Intermediate" },
     ],
     tools: [
-      { name: "Git", icon: <FaGit className="text-orange-600" size={24} /> },
-      { name: "Docker", icon: <FaDocker className="text-blue-500" size={24} /> },
-      { name: "AWS", icon: <FaAws className="text-orange-400" size={24} /> },
-      { name: "Linux", icon: <SiLinux className="text-yellow-500" size={24} /> },
+      { name: "Git", icon: <FaGit className="text-orange-600" size={24} />, level: "Advanced" },
+      { name: "Docker", icon: <FaDocker className="text-blue-500" size={24} />, level: "Intermediate" },
+      { name: "AWS", icon: <FaAws className="text-orange-400" size={24} />, level: "Intermediate" },
+      { name: "Linux", icon: <SiLinux className="text-yellow-500" size={24} />, level: "Advanced" },
     ],
   };
 
@@ -63,7 +64,12 @@ export default function Skills() {
       <div className="flex-shrink-0">
         {skill.icon}
       </div>
-      <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{skill.name}</span>
+      <div className="flex flex-col">
+        <span className="text-sm font-medium text-gray-800 dark:text-gray-200">{skill.name}</span>
+        <span className={`text-xs ${skill.level === 'Advanced' ? 'text-green-600 dark:text-green-400' : 'text-blue-600 dark:text-blue-400'}`}>
+          {skill.level}
+        </span>
+      </div>
     </div>
   );
   

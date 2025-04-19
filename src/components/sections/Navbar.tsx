@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { motion, AnimatePresence } from "framer-motion"
 
 interface NavItem {
   label: string;
@@ -63,11 +64,15 @@ const Navbar = () => {
   const { setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
+      
+      // Check if page is scrolled to apply shadow/background change
+      setIsScrolled(scrollPosition > 10);
       
       // Get all sections and their positions
       const sections = navItems.map(item => {
@@ -118,6 +123,30 @@ const Navbar = () => {
     }
   };
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuButton = document.getElementById('menu-button');
+      
+      if (
+        isMenuOpen && 
+        mobileMenu && 
+        menuButton && 
+        !mobileMenu.contains(target) && 
+        !menuButton.contains(target)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
   if (!mounted) return null;
 
   // Theme toggle button component
@@ -145,7 +174,12 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="fixed w-full top-0 z-50 bg-white/75 dark:bg-gray-900/75 border-b border-gray-200 dark:border-gray-700 backdrop-blur-sm">
+    <nav className={cn(
+      "fixed w-full top-0 z-50 transition-all duration-300",
+      isScrolled 
+        ? "bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-700 backdrop-blur-sm shadow-md" 
+        : "bg-white/75 dark:bg-gray-900/75"
+    )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0 flex items-center space-x-2">
@@ -178,6 +212,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             <ThemeToggle />
             <Button
+              id="menu-button"
               variant="ghost"
               size="icon"
               className="md:hidden"
@@ -194,23 +229,63 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4" role="dialog" aria-modal="true">
-            <div className="flex flex-col space-y-4">
-              {navItems.map((item) => (
-                <NavButton
-                  key={item.href}
-                  icon={item.icon}
-                  label={item.label}
-                  active={activeSection === item.href.substring(1)}
-                  onClick={() => scrollToSection(item.href)}
-                  onKeyDown={(e) => handleKeyNavigation(e, item.href)}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Mobile Navigation - Slide from right with AnimatePresence */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              id="mobile-menu"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.3 }}
+              className="fixed top-0 right-0 h-screen w-[65%] bg-white dark:bg-gray-900 shadow-xl z-50 p-5 pt-20 md:hidden"
+            >
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-4 right-4"
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                <X className="h-6 w-6" />
+              </Button>
+              
+              <div className="flex flex-col space-y-6">
+                {navItems.map((item) => (
+                  <motion.div
+                    key={item.href}
+                    initial={{ x: 20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.1 * navItems.findIndex(i => i.href === item.href) }}
+                  >
+                    <NavButton
+                      icon={item.icon}
+                      label={item.label}
+                      active={activeSection === item.href.substring(1)}
+                      onClick={() => scrollToSection(item.href)}
+                      onKeyDown={(e) => handleKeyNavigation(e, item.href)}
+                      className="w-full justify-start text-lg py-3"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        
+        {/* Overlay when mobile menu is open */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+              onClick={() => setIsMenuOpen(false)}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </nav>
   );
