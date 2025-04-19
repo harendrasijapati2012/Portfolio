@@ -25,16 +25,16 @@ export default function Projects() {
       title: "Banking Management System",
       description: "A comprehensive banking system with user accounts, transactions, and admin controls built in C language.",
       technologies: ["C", "File Handling", "Data Structures"],
-      imageUrl: "/api/placeholder/400/250",
-      githubUrl: "https://github.com/yourusername/banking-management",
+      imageUrl: "/projects/banking.png",
+      githubUrl: "https://github.com/harendrasijapati2012/banking-management",
       category: "c"
     },
     {
       title: "Authentication System",
       description: "Secure authentication system using JWT, REST Framework with both local storage and cookie-based sessions.",
       technologies: ["React", "Django", "JWT", "REST API"],
-      imageUrl: "/api/placeholder/400/250",
-      githubUrl: "https://github.com/yourusername/auth-system",
+      imageUrl: "/projects/auth.png",
+      githubUrl: "https://github.com/harendrasijapati2012/auth-system",
       liveUrl: "https://auth-demo.example.com",
       category: "fullstack"
     },
@@ -42,7 +42,7 @@ export default function Projects() {
       title: "JavaScript Mini Games",
       description: "Collection of interactive games including Tic-Tac-Toe, Rock Paper Scissors, and other classic games.",
       technologies: ["JavaScript", "HTML5", "CSS3"],
-      imageUrl: "/api/placeholder/400/250",
+      imageUrl: "/projects/minigame.png",
       githubUrl: "https://github.com/yourusername/js-games",
       liveUrl: "https://js-games.example.com",
       category: "javascript"
@@ -51,16 +51,16 @@ export default function Projects() {
       title: "Restaurant Billing System",
       description: "An efficient point-of-sale solution for restaurants with inventory management and billing features.",
       technologies: ["Visual Basic", "SQL", "Reporting Services"],
-      imageUrl: "/api/placeholder/400/250",
+      imageUrl: "/projects/billing.png",
       githubUrl: "https://github.com/yourusername/restaurant-billing",
       category: "visualbasic"
     },
     {
-      title: "User Management Control Panel",
+      title: " Management Control Panel",
       description: "Comprehensive user management system with role-based access control and detailed analytics.",
       technologies: ["Django", "React", "Redux", "PostgreSQL"],
-      imageUrl: "/api/placeholder/400/250",
-      githubUrl: "https://github.com/yourusername/user-management",
+      imageUrl: "/projects/management.png",
+      githubUrl: "https://github.com/CollegeFinderSystem/Frontend_CFS",
       liveUrl: "https://user-panel.example.com",
       category: "fullstack"
     },
@@ -68,8 +68,8 @@ export default function Projects() {
       title: "Admin Dashboard",
       description: "Feature-rich admin control panel with customizable widgets and comprehensive reporting.",
       technologies: ["React", "Django", "Tailwind CSS", "Material UI", "shadcn/ui"],
-      imageUrl: "/api/placeholder/400/250",
-      githubUrl: "https://github.com/yourusername/admin-dashboard",
+      imageUrl: "/projects/admin.png",
+      githubUrl: "https://github.com/Advertisement-Hub-55/Frontend_Admin_Panel",
       liveUrl: "https://admin-dash.example.com",
       category: "fullstack"
     },
@@ -77,8 +77,8 @@ export default function Projects() {
       title: "College Finder System",
       description: "Platform helping students find colleges based on their preferences, courses, and locations.",
       technologies: ["Django", "Python", "React", "PostgreSQL"],
-      imageUrl: "/api/placeholder/400/250",
-      githubUrl: "https://github.com/yourusername/college-finder",
+      imageUrl: "/projects/college.png",
+      githubUrl: "https://github.com/orgs/CollegeFinderSystem/repositories",
       liveUrl: "https://findmycollege.example.com",
       category: "fullstack"
     },
@@ -86,7 +86,7 @@ export default function Projects() {
       title: "Event Organization & Blood Donation",
       description: "Platform for organizing events and coordinating blood donation drives with donor management.",
       technologies: ["Laravel", "PHP", "Next.js", "React", "MySQL"],
-      imageUrl: "/api/placeholder/400/250",
+      imageUrl: "/projects/blood.png",
       githubUrl: "https://github.com/yourusername/event-blooddonation",
       liveUrl: "https://events-donate.example.com",
       category: "laravel"
@@ -95,11 +95,21 @@ export default function Projects() {
       title: "Gharbeti Rental Services",
       description: "Property rental marketplace connecting landlords with tenants, featuring property listings and booking system.",
       technologies: ["Node.js", "Express", "MongoDB", "React", "Redux"],
-      imageUrl: "/api/placeholder/400/250",
+      imageUrl: "/projects/rent.png",
       githubUrl: "https://github.com/yourusername/gharbeti-rental",
       liveUrl: "https://gharbeti.example.com",
       category: "nodejs"
+    },
+    {
+      title: "Promotion Advertisement Hub",
+      description: "Property rental marketplace connecting landlords with tenants, featuring property listings and booking system.",
+      technologies: ["Node.js", "Express", "MongoDB", "React", "Redux"],
+      imageUrl: "/projects/advertisementhub.png",
+      githubUrl: "https://github.com/orgs/Advertisement-Hub-55/repositories",
+      liveUrl: "http://x08c48c8wc048w40cc0w4sow.157.173.220.245.sslip.io/",
+      category: "nodejs"
     }
+    
   ];
 
   const filteredProjects = filter === 'all' 

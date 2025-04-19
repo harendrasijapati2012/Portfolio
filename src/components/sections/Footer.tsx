@@ -42,7 +42,7 @@ const Footer = () => {
     {
       title: 'Resources',
       links: [
-        { name: 'Resume', href: './resume.pdf' },
+        { name: 'Resume', href: './Harendra-Sijapati-cv.pdf' },
         { name: 'Blog', href: './blog' },
       ]
     }

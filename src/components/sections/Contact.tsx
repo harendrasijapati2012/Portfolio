@@ -1,4 +1,3 @@
-// src/components/Contact.tsx
 import ContactForm from './ContactForm';
 
 export default function Contact() {
